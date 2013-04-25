@@ -27,8 +27,7 @@ LINKEDIN_AUTHORIZATION_URL = 'https://www.%s/uas/oauth/authenticate' % \
 LINKEDIN_CHECK_AUTH = 'https://api.%s/v1/people/~' % LINKEDIN_SERVER
 # Check doc at http://developer.linkedin.com/docs/DOC-1014 about how to use
 # fields selectors to retrieve extra user data
-LINKEDIN_FIELD_SELECTORS = ['id', 'first-name', 'last-name']
-
+LINKEDIN_FIELD_SELECTORS = ['id', 'first-name', 'last-name', 'formatted-name', 'email-address', 'picture-url']
 
 class LinkedinBackend(OAuthBackend):
     """Linkedin OAuth authentication backend"""
@@ -54,7 +53,10 @@ class LinkedinOAuth2Backend(LinkedinBackend):
 
     EXTRA_DATA = [('id', 'id'),
                   ('firstName', 'first_name'),
-                  ('lastName', 'last_name')]
+                  ('lastName', 'last_name'),
+                  ('formattedName', 'formatted_name'),
+                  ('emailAddress', 'email_address'),
+                  ('pictureUrl', 'image_url'),]
 
     def get_user_details(self, response):
         first_name, last_name = response['firstName'], response['lastName']
